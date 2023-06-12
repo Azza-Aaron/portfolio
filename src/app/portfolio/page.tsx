@@ -1,15 +1,18 @@
 import {MyHeaders} from "@/components/headers";
-import MyFooter from "@/components/footers";
 import {bodyClass} from "@/app/tailWindClasses";
+import MyFooter from "@/components/footers";
+import {ProjectCard} from "@/components/cards";
+import {prisma} from "@/db";
 
-export default function Home(){
+export default async function portfolioPage(){
+    const projects = await prisma.projects.findMany()
     return(
         <>
             <header>
                 <MyHeaders headers={['portfolio']}/>
             </header>
             <div className={bodyClass}>
-                <p>Body</p>
+                <ProjectCard projects={projects}/>
             </div>
             <footer>
                 <MyFooter />
