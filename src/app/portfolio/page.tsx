@@ -2,10 +2,14 @@ import {MyHeaders} from "@/components/headers";
 import {bodyClass} from "@/app/tailWindClasses";
 import MyFooter from "@/components/footers";
 import {ProjectCard} from "@/components/cards";
-import {prisma} from "@/db";
+import {getProjects} from "@/model/getProjects";
+import {Projects} from ".prisma/client";
 
-export default async function portfolioPage(){
-    const projects = await prisma.projects.findMany()
+export default async function PortfolioPage(){
+    const projects: Projects[] = await getProjects()
+    if(!projects){
+        return <h1>Content unavailable in your country.</h1>
+    }
     return(
         <>
             <header>

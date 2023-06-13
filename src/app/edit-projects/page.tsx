@@ -1,30 +1,39 @@
 import {MyHeaders} from "@/components/headers";
-import {bodyClass, headerClass} from "@/app/tailWindClasses";
+import {bodyClass, headerClass, linkClass} from "@/app/tailWindClasses";
 import MyFooter from "@/components/footers";
 import {prisma} from "@/db";
+import {auth} from "@/utility/authentication";
+import {MyLogin} from "@/components/forms/login";
+import {MyProjectsForm} from "@/components/forms/projects";
+import {getProjects} from "@/model/getProjects";
+import {Projects} from ".prisma/client";
 
 
 
 export default async function newProjectPage(){
-    // @ts-ignore
-    await prisma.projects.create({data: {
-            title: "Portfolio Project",
-            body: "Creating a portfolio and expanding my knowledge.",
-            languages: "TypeScript",
-            link: "https://github.com/Azza-Aaron/portfolio",
-            complete: false
-        }})
+    const authed: boolean = await auth()
+    if(!authed){
+        return (
+            <>
+                <header>
+                    <MyHeaders headers={['portfolio']}/>
+                </header>
+                <MyLogin />
+            </>
+        )
+    }
+    const projects: Projects[]  = await getProjects()
     return(
         <>
             <header>
                 <MyHeaders headers={['portfolio']}/>
             </header>
             <div className={bodyClass}>
-                <p>body</p>
+                <button className={linkClass}> Add Project</button>
             </div>
-            <footer>
-                <MyFooter />
-            </footer>
+            <div className={bodyClass}>
+                <MyProjectsForm projects={projects} />
+            </div>
         </>
     )
 }
