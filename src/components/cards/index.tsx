@@ -10,9 +10,9 @@ export const ProjectCard = ({projects}: {projects:Projects[]}) => {
         return(
             <li className={"mt-6"}>
                 <div className="font-bold text-xl mb-6" style={{textAlign: 'center'}}>{project.title}</div>
-                <div className={'mt-2 rounded-2xl border-2 border-slate-400 p-2'} style={{textAlign: 'center'}}>
-                    <div className="max-w-sm rounded overflow-hidden shadow-lg" id={project.id}>
-                        <div className="px-6 py-4">
+                <div className={'mt-2 rounded-2xl border-2 border-slate-400 p-2 bg-gray-900 shadow-lg'} style={{textAlign: 'center'}}>
+                    <div className="max-w-max rounded overflow-hidden shadow-lg" id={project.id}>
+                        <div className="px-8 py-4">
                             <p className="text-base">
                                 {project.body}
                             </p>
@@ -25,8 +25,8 @@ export const ProjectCard = ({projects}: {projects:Projects[]}) => {
                                 className="inline-block bg-gray-400 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Completion: {project.complete ? 'Project is Complete' : 'Project is Incomplete'}</span>
                         </div>
                         <div className="flex items-center">
-                            <div className="text-sm">
-                                <Link className="text-blue-500 leading-none" href={project.link}>Click for GitHub</Link>
+                            <div className="mx-auto text-center text-sm">
+                                <Link className="text-blue-500 leading-none" href={project.link} >Click for GitHub</Link>
                                 <p className="text-gray-600">Last Updated {lastUpdate}</p>
                             </div>
                         </div>

@@ -14,7 +14,7 @@ export const MyProjectsForm = ({projects}: {projects:Projects[]}): ReactElement 
         //{complete ? "Complete" : 'Work in Progress'}
         //onClick={() => complete = !complete}
         return (
-            <li key={project.id} className={'mt-8 rounded-2xl border-2 border-slate-400'} style={{textAlign: "center"}}>
+            <li key={project.id} className={'mt-8 rounded-2xl border-2 border-slate-400 bg-gray-900 shadow-lg'} style={{textAlign: "center"}}>
                 <form className={'p-3'} >
                     <div contentEditable={true}>
                         <h1 className={`${headerClass} justify-evenly`}>{project.title}</h1>
