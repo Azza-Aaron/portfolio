@@ -2,37 +2,53 @@ import Link from "next/link";
 import {getProjects} from "@/model/getProjects";
 import {Projects} from ".prisma/client";
 import {ReactElement} from "react";
-import {headerClass} from "@/app/tailWindClasses";
+import {bodyClass, headerClass, inputClassEdit, linkClass, radioClass, textAreaClass} from "@/app/tailWindClasses";
+import {newProject} from "@/model/addProject";
 
-export const MyProjectsForm = ({projects}: {projects:Projects[]}): ReactElement => {
+export const MyProjectsForm = async ({projects}: {projects:Projects[]}) :Promise<ReactElement> => {
     if(!projects){
         return <h1>No Projects Yet</h1>
     }
     //const submitChanges = () => { console.log('button pressed')}
     const mappedProjects: ReactElement[] =  projects.map((project:Projects) => {
-        //let complete:boolean = project.complete
-        //{complete ? "Complete" : 'Work in Progress'}
-        //onClick={() => complete = !complete}
+        let complete:boolean = project.complete
         return (
-            <li key={project.id} className={'mt-8 rounded-2xl border-2 border-slate-400 bg-gray-900 shadow-lg'} style={{textAlign: "center"}}>
-                <form className={'p-3'} >
-                    <div contentEditable={true}>
-                        <h1 className={`${headerClass} justify-evenly`}>{project.title}</h1>
-                        <textarea className={"peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"}
+            <li key={project.id} className={'mt-8 rounded-2xl border-2 border-slate-400 bg-gray-900 text-center'}>
+                <form className={'p-3'} action={newProject} >
+                    <div  className={"px-64 flex-auto max-w-max rounded"}>
+                        <input name={'title'} placeholder={project.title} className={`w-fit text-2xl ${inputClassEdit} mx-auto`} />
+                        <label className={`underline ${bodyClass}`}>Body</label>
+                        <textarea name={'body'} className={`${textAreaClass} contentEditable={true} w-96`}
                                   id="exampleFormControlTextarea1"
                                   rows={6} >{project.body}</textarea>
-                        <p>{project.languages}</p>
-                        <p>{project.link}</p>
-                        <label>Created at {project.createdAt.toString()}</label>
+                        <label className={`underline ${bodyClass}`}>Languages</label>
+                        <textarea name={'body'} className={`${textAreaClass} contentEditable={true} mx-auto`}
+                                  id="exampleFormControlTextarea1"
+                                  rows={1} >{project.languages}</textarea>
+                        <label className={`underline ${bodyClass}`}>Link</label>
+                        <textarea name={'body'} className={`${textAreaClass} contentEditable={true} mx-auto`}
+                                  id="exampleFormControlTextarea1">{project.link}</textarea>
+                        <label className={`underline ${bodyClass}`}>Created At</label>
+                        <textarea name={'body'} className={`${textAreaClass} contentEditable={true} w-96`}
+                                  id="exampleFormControlTextarea1">{project.createdAt.toString()}</textarea>
                         <br></br>
                         <div className="inline-flex rounded-md shadow-sm" role="group">
-                            <button id={project.id} type={"submit"}
-                                    className="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
-                            >Submit Changes</button>
-                            <button type="button"
-                                    className="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
-                                Complete or Uncomplete
-                            </button>
+
+                            <div className="">
+                                <input id="default-radio-1" type="radio" value="0" name="default-radio"
+                                       className={radioClass}/>
+                                    <label htmlFor="default-radio-1"
+                                           className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Incomplete</label>
+                            </div>
+                            <div className="ml-3">
+                                <input checked id="default-radio-2" type="radio" value="1" name="default-radio"
+                                       className={radioClass}/>
+                                    <label htmlFor="default-radio-2"
+                                           className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Complete</label>
+                            </div>
+                        </div>
+                        <div>
+                                <button id={project.id} type={"submit"} className={`mt-4 ${linkClass} text-center`} >Submit Changes</button>
                         </div>
 
                     </div>
@@ -46,3 +62,21 @@ export const MyProjectsForm = ({projects}: {projects:Projects[]}): ReactElement 
         </ul>
     )
 }
+
+/*
+<label htmlFor="default-radio-1"
+       className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Default radio</label>
+
+<label htmlFor="default-radio-2"
+       className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Checked state</label>*/
+
+
+/*
+<div className="flex items-center mb-4">
+    <input id="default-radio-1" type="radio" value={"true"} name="default-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
+
+</div>
+<div className="flex items-center">
+    <input checked id="default-radio-2" type="radio" value={"false"} name="default-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
+
+</div>*/
