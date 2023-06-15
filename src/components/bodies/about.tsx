@@ -13,7 +13,7 @@ export const aboutHomePageText = [
 export const AboutBody = ({text}:{text: string[]}) => {
     const mapped: ReactElement[] = text.map((paragraph) => {
         return(
-            <li className={"mt-6"}>
+            <li className={"mt-6 mb-1"}>
                 <div className={"flex text-center"}>
                     <div className={'w-2/6'}></div>
                     <p className={"w-4/6"}>{paragraph}</p>

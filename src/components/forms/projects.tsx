@@ -3,7 +3,7 @@ import {getProjects} from "@/model/getProjects";
 import {Projects} from ".prisma/client";
 import {ReactElement} from "react";
 import {bodyClass, headerClass, inputClassEdit, linkClass, radioClass, textAreaClass} from "@/app/tailWindClasses";
-import {newProject} from "@/model/addProject";
+import {newProject} from "@/model/editProject";
 
 export const MyProjectsForm = async ({projects}: {projects:Projects[]}) :Promise<ReactElement> => {
     if(!projects){
@@ -16,39 +16,39 @@ export const MyProjectsForm = async ({projects}: {projects:Projects[]}) :Promise
             <li key={project.id} className={'mt-8 rounded-2xl border-2 border-slate-400 bg-gray-900 text-center'}>
                 <form className={'p-3'} action={newProject} >
                     <div  className={"px-64 flex-auto max-w-max rounded"}>
-                        <input name={'title'} placeholder={project.title} className={`w-fit text-2xl ${inputClassEdit} mx-auto`} />
+                        <textarea name={'title'} required placeholder={project.title} className={`w-fit text-3xl ${inputClassEdit} mx-auto mt-3`}>{project.title}</textarea>
                         <label className={`underline ${bodyClass}`}>Body</label>
-                        <textarea name={'body'} className={`${textAreaClass} contentEditable={true} w-96`}
+                        <textarea name={'body'} required className={`${textAreaClass} contentEditable={true} w-96`}
                                   id="exampleFormControlTextarea1"
-                                  rows={6} >{project.body}</textarea>
+                                  rows={12} >{project.body}</textarea>
                         <label className={`underline ${bodyClass}`}>Languages</label>
-                        <textarea name={'body'} className={`${textAreaClass} contentEditable={true} mx-auto`}
+                        <textarea name={'languages'} required className={`${textAreaClass} contentEditable={true} mx-auto text-center`}
                                   id="exampleFormControlTextarea1"
                                   rows={1} >{project.languages}</textarea>
                         <label className={`underline ${bodyClass}`}>Link</label>
-                        <textarea name={'body'} className={`${textAreaClass} contentEditable={true} mx-auto`}
+                        <textarea name={'link'} required className={`${textAreaClass} contentEditable={true} w-96 mx-auto`}
                                   id="exampleFormControlTextarea1">{project.link}</textarea>
                         <label className={`underline ${bodyClass}`}>Created At</label>
-                        <textarea name={'body'} className={`${textAreaClass} contentEditable={true} w-96`}
+                        <textarea name={'date'} required className={`${textAreaClass} contentEditable={true} w-96`}
                                   id="exampleFormControlTextarea1">{project.createdAt.toString()}</textarea>
                         <br></br>
                         <div className="inline-flex rounded-md shadow-sm" role="group">
 
                             <div className="">
-                                <input id="default-radio-1" type="radio" value="0" name="default-radio"
+                                <input required id="default-radio-1" type="radio" value="0" name="default-radio"
                                        className={radioClass}/>
                                     <label htmlFor="default-radio-1"
                                            className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Incomplete</label>
                             </div>
                             <div className="ml-3">
-                                <input checked id="default-radio-2" type="radio" value="1" name="default-radio"
+                                <input required id="default-radio-2" type="radio" value="1" name="default-radio"
                                        className={radioClass}/>
                                     <label htmlFor="default-radio-2"
                                            className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Complete</label>
                             </div>
                         </div>
-                        <div>
-                                <button id={project.id} type={"submit"} className={`mt-4 ${linkClass} text-center`} >Submit Changes</button>
+                        <div className={"mb-3"}>
+                                <button id={project.id} type={"submit"} name={"pressed-button"} value={project.id} className={`mt-4 ${linkClass} text-center`} >Submit Changes</button>
                         </div>
 
                     </div>

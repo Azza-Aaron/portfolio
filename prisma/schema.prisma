@@ -17,6 +17,6 @@ model Projects {
   languages String
   link      String
   complete  Boolean
-  createdAt DateTime @default(now())
+  createdAt DateTime
   updatedAt DateTime @updatedAt
 }
