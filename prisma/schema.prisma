@@ -17,6 +17,12 @@ model Projects {
   languages String
   link      String
   complete  Boolean
-  createdAt DateTime
+  createdAt String
   updatedAt DateTime @updatedAt
+}
+
+model Users {
+  id       String @id @default(uuid())
+  name     String
+  password String
 }

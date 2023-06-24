@@ -1,6 +1,6 @@
 import {ReactElement} from "react";
 
-export const aboutHomePageText = [
+export const aboutHomePageText: string[] = [
     "Welcome to my programming portfolio. I'm Aaron Winfield, a self-taught full-stack developer with extensive experience in HTML, CSS, JavaScript, React, and SQL, particularly PostgreSQL. I seek to stay updated with the latest industry trends and enhance my skills by learning Next.js and TypeScript.",
 
     "As a family man with three children, I uphold values such as hard work and dedication, which I apply to my work as a Digital Operations Executive. My coding skills have enabled me to streamline operations and deliver results-driven solutions.",
@@ -11,13 +11,11 @@ export const aboutHomePageText = [
 ]
 
 export const AboutBody = ({text}:{text: string[]}) => {
-    const mapped: ReactElement[] = text.map((paragraph) => {
+    const mapped: ReactElement[] = text.map((paragraph: string) => {
         return(
-            <li className={"mt-6 mb-1"}>
+            <li className={"mt-6 mb-1"} key={"body"}>
                 <div className={"flex text-center"}>
-                    <div className={'w-2/6'}></div>
-                    <p className={"w-4/6"}>{paragraph}</p>
-                    <div className={'w-2/6'}></div>
+                    <p>{paragraph}</p>
                 </div>
             </li>
         )

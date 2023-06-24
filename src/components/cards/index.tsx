@@ -7,8 +7,13 @@ export const ProjectCard = ({projects}: {projects:Projects[]}) => {
     const myProjects: ReactElement[] = projects?.map((project: Projects) => {
         let lastUpdate:string = project.updatedAt.toString()
         lastUpdate = lastUpdate.replaceAll("(Australian Western Standard Time)", "")
+        //check if project.link is a website or a string
+        let link:boolean = false
+        if(project.link.includes("http") || project.link.includes("www")){
+            link = true
+        }
         return(
-            <li className={"mt-6"}>
+            <li className={"mt-6"} key={project.id}>
                 <div className="font-bold text-xl mb-6" style={{textAlign: 'center'}}>{project.title}</div>
                 <div className={'mx-auto flex justify-center mt-2 rounded-2xl border-2 border-slate-400 p-2 bg-gray-900 shadow-lg'} style={{textAlign: 'center'}}>
                     <div className="max-w-max rounded overflow-hidden shadow-lg" id={project.id}>
@@ -23,7 +28,9 @@ export const ProjectCard = ({projects}: {projects:Projects[]}) => {
                             <span className="inline-block bg-gray-400 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Completion: {project.complete ? 'Project is Complete' : 'Project is Incomplete'}</span>
                         </div>
                     <div className="text-center text-sm">
-                        <Link className="text-blue-500 leading-none" href={project.link} >Click for GitHub</Link>
+                        {link ? <Link className="text-blue-500 leading-none" href={project.link}  target="_blank" >Click for GitHub</Link> :
+                            <p className="text-blue-500 leading-none">{project.link}</p>
+                        }
                         <p className="text-gray-600">Last Updated {lastUpdate}</p>
                     </div>
                     </div>
